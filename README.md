@@ -4,7 +4,9 @@ An English hardware guide for building a PrintTac tactile UMI gripper and using 
 
 ## Website
 
-Published with GitHub Pages from the `main` branch, using the repository root. The public website address is shown in this repository's **About** section.
+**[Read the Hardware Guide](https://pigwu.github.io/PrintTac-Hardware-Guide/)**
+
+Published with GitHub Pages from the `main` branch, using the repository root.
 
 The guide covers parts and tools, 3D printing, fingertip assembly, power and wireless connectivity, iPhone setup, gripper calibration, first capture, and troubleshooting.
 
