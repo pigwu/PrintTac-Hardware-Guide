@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Build a PrintTac tactile UMI gripper: bill of materials, 3D printing, fingertip assembly, wireless connection, calibration, and first capture.">
+<title>PrintTac · Hardware Guide</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%235640cb'/%3E%3Cpath d='M9 23V9h8a5 5 0 0 1 0 10h-4v4M13 13v2h4a1 1 0 0 0 0-2z' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+<script src="guide.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header">
+<a class="brand" href="#overview"><span class="mark" aria-hidden="true">P</span>PrintTac <span class="brand-divider">/</span><span class="brand-sub">Hardware Guide</span></a>
+<nav aria-label="Project links"><a href="https://peppasaur.github.io/PrintTac/" target="_blank" rel="noopener">Project page</a><a href="https://github.com/pigwu/ARPoseStreamer" target="_blank" rel="noopener">Collection code <span aria-hidden="true">↗</span></a></nav>
+</header>
+<div class="layout">
+<aside class="sidebar">
+<p class="nav-label">BUILD GUIDE <span>EN</span></p>
+<nav aria-label="Guide chapters" class="chapters">
+<a href="#overview" class="active"><span>00</span>Overview</a>
+<a href="#bom"><span>01</span>Parts &amp; tools</a>
+<a href="#printing"><span>02</span>3D printing</a>
+<a href="#assembly"><span>03</span>Fingertip assembly</a>
+<a href="#connection"><span>04</span>Power &amp; wireless</a>
+<a href="#phone"><span>05</span>iPhone setup</a>
+<a href="#calibration"><span>06</span>Gripper calibration</a>
+<a href="#capture"><span>07</span>First capture</a>
+<a href="#troubleshooting"><span>08</span>Validation</a>
+</nav>
+<div class="sidebar-note"><strong>Build. Connect. Record.</strong><p>Validate one fingertip before assembling the two-finger gripper and connecting your phone.</p></div>
+<a class="reference-nav" href="#resources">Resources &amp; release status</a>
+</aside>
+<main id="main">
+<section id="overview" class="overview">
+<div class="eyebrow">BUILD DOCUMENTATION <span>PRINTTAC + UMI</span></div>
+<h1>PrintTac Hardware Guide</h1>
+<p class="intro">Build a tactile UMI gripper.</p>
+<p class="lead">Assemble modular tactile fingertips with a printed PETG flexure and a magnetometer array. Connect them to an iPhone to record touch, vision, and pose in a portable demonstration system.</p>
+<div class="actions"><a class="button primary" href="#bom">Bill of materials</a><a class="button" href="#assembly">Assembly instructions</a></div>
+<div class="facts"><span><b>5 × 3-axis</b>magnetometers per finger</span><span><b>PETG + PLA</b>flexure and contact tip</span><span><b>iPhone hotspot</b>untethered local recording</span></div>
+<figure class="overview-figure"><img src="assets/teaser.jpg" width="2344" height="816" alt="PrintTac system overview: iPhone-equipped UMI gripper, modular tactile fingertip, and contact-rich tasks"><figcaption><span>System overview</span>Portable collection, modular sensing, and manipulation tasks. Image from the PrintTac project page.</figcaption></figure>
+<div class="notice"><span class="notice-icon" aria-hidden="true">i</span><div><strong>Before you build: match the hardware revision</strong><p>This guide combines public PrintTac materials with the current ARPoseStreamer implementation. The available materials do not include a complete CAD package, magnet dimensions, fastener specifications, print profiles, or board firmware. These items are marked as pending below. Obtain the matching design files before purchasing parts, printing, or flashing boards.</p></div></div>
+<div class="flow" aria-label="Build sequence"><div><small>BUILD</small><strong>Print &amp; assemble</strong><p>Flexure · magnets · contact tip</p></div><div><small>CONNECT</small><strong>Pair with your phone</strong><p>Sensor board · ESP32 · Wi-Fi</p></div><div><small>RECORD</small><strong>Validate &amp; capture</strong><p>Touch · aperture · pose</p></div></div>
+</section>
+<section id="bom">
+<div class="section-heading"><span class="section-number">01</span><div><p class="eyebrow">BILL OF MATERIALS</p><h2>Parts &amp; tools</h2></div></div>
+<p>The quantities below describe a two-finger handheld gripper with independent sensing on each finger. Use the released CAD and BOM to determine magnet and fastener quantities.</p>
+<div class="table-wrap"><table><thead><tr><th>Component</th><th>Qty.</th><th>Purpose / requirement</th><th>Status</th></tr></thead><tbody>
+<tr><td><strong>Five-chip magnetometer board</strong><small>Sensing core</small></td><td>2</td><td>Five three-axis magnetic readings per finger. The board must match the firmware.</td><td><span class="tag">Model pending</span></td></tr>
+<tr><td><strong>Adafruit QT Py ESP32</strong><small>Wireless controller</small></td><td>2</td><td>Reads magnetic data and sends it to the phone. Confirm the exact variant and pinout.</td><td><span class="tag">Variant pending</span></td></tr>
+<tr><td><strong>PETG compliant flexure</strong><small>Printed structure</small></td><td>2</td><td>Use identical CAD, material, and print settings for both fingers.</td><td><span class="tag">CAD pending</span></td></tr>
+<tr><td><strong>PLA contact tip</strong><small>Replaceable interface</small></td><td>2</td><td>Select a flat wiping pad or a pointed grasping tip for your task.</td><td><span class="tag">CAD pending</span></td></tr>
+<tr><td><strong>Cylindrical neodymium magnets</strong></td><td>Per CAD</td><td>Seated behind the rigid contact plate. Match dimensions and polarity to the design.</td><td><span class="tag">Dimensions pending</span></td></tr>
+<tr><td><strong>Gripper chassis, phone mount &amp; fasteners</strong></td><td>1 set</td><td>Secure both fingers and the phone. Fasteners must not interfere with the flexure.</td><td><span class="tag">BOM pending</span></td></tr>
+<tr><td><strong>ARKit-compatible iPhone</strong></td><td>1</td><td>The current ultrawide ArUco path requires a compatible iPhone Pro and iOS version. Verify on the actual device.</td><td><span class="tag confirmed">Documented</span></td></tr>
+<tr><td><strong>USB-C power adapter &amp; cables</strong></td><td>1 set</td><td>Verify the phone output, board supply requirements, and combined current draw.</td><td><span class="tag">Adapter pending</span></td></tr>
+<tr><td><strong>ArUco markers, IDs 0 and 1</strong></td><td>1 each</td><td>DICT_4X4_50; 16 mm black outer edge. Print at 100% scale.</td><td><span class="tag confirmed">Software convention</span></td></tr>
+</tbody></table></div>
+<div class="tools"><strong>Tools you will need</strong><p>An FDM printer, digital calipers, screwdrivers matched to the fasteners, and a Mac with Xcode for app installation. A Windows or macOS computer is used for monitoring, uploads, and processing; on-site recording can run on the phone alone.</p></div>
+</section>
+<section id="printing">
+<div class="section-heading"><span class="section-number">02</span><div><p class="eyebrow">3D PRINTING</p><h2>Print the structural parts</h2></div></div>
+<div class="two-col"><article class="material"><span class="material-label">COMPLIANT STRUCTURE</span><h3>PETG flexure</h3><p>The monolithic flexure allows the contact plate to move relative to the fixed magnetometer array. Print both fingers from the same CAD model and print profile to reduce fabrication differences.</p></article><article class="material"><span class="material-label">CONTACT GEOMETRY</span><h3>PLA contact tip</h3><p>The rigid contact tip is mechanically separate from the sensing core. Change the task-facing geometry while preserving the relative positions of the magnets, sensor board, and flexure.</p></article></div>
+<div class="table-wrap"><table><thead><tr><th>Print parameter</th><th>Available specification</th></tr></thead><tbody>
+<tr><td>Material</td><td>PETG for the compliant flexure; PLA for the rigid contact tip.</td></tr><tr><td>Layer height, walls, infill &amp; orientation</td><td>Pending a validated print profile. Do not treat these as interchangeable settings.</td></tr><tr><td>Nozzle, temperature, speed &amp; supports</td><td>Pending a profile matched to the printer and filament.</td></tr><tr><td>Revision tracking</td><td>Record the CAD revision, filament batch, and slicer project. Keep both fingers consistent.</td></tr>
+</tbody></table></div>
+<h3>Inspect each print</h3><ul class="check-list"><li>Check the flexure beams for cracks, layer separation, and remaining support material.</li><li>Verify that the contact plate, magnet pockets, and sensor-board mounts match the CAD.</li><li>Apply a gentle load and check elastic return. Moving parts must not collide with the electronics.</li></ul>
+<p class="subtle">These are suggested assembly checks. Load limits and dimensional tolerances must come from the matching design revision; simulation loads are not a rated operating limit.</p>
+</section>
+<section id="assembly">
+<div class="section-heading"><span class="section-number">03</span><div><p class="eyebrow">FINGERTIP ASSEMBLY</p><h2>Assemble the tactile fingertips</h2></div></div>
+<figure class="figure"><img src="assets/fingertip.png" loading="lazy" width="1871" height="741" alt="Interchangeable PrintTac contact tips for wiping and fine grasping"><figcaption>Flat wiping pads and pointed grasping tips share the same sensing base. Source: PrintTac project page.</figcaption></figure>
+<ol class="steps"><li><h3>Confirm the magnet layout</h3><p>Follow the matching CAD for pocket positions, magnet count, and polarity. Keep both fingers consistent with the reference sensing configuration. Confirm polarity before permanently securing the magnets.</p></li><li><h3>Mount the sensor board and flexure</h3><p>Keep the magnetometer board fixed to the base while the magnets move with the contact plate. Check that tightening does not bend the board or constrain the flexure. Route cables clear of moving parts.</p></li><li><h3>Attach the replaceable contact tip</h3><p>Use the fasteners specified by the design. Preserve the internal magnetic sensing stack when replacing a tip. Check the unloaded signal and elastic return after assembly and each replacement.</p></li><li><h3>Validate one finger, then assemble the pair</h3><p>Gently touch the tip and inspect all five chips. Signals should respond to contact and return to a stable unloaded baseline. Once both fingers pass, mount them on the gripper and secure the phone and cables.</p></li></ol>
+<details class="video-detail"><summary>Watch the original assembly video</summary><video controls playsinline preload="none" src="https://peppasaur.github.io/PrintTac/assets/assembly.mp4" aria-label="Original PrintTac assembly video"></video><p class="subtle">Video hosted by the original project. If playback is unavailable, <a href="https://peppasaur.github.io/PrintTac/#hardware" target="_blank" rel="noopener">view the assembly materials on the project page</a>.</p></details>
+</section>
+<section id="connection">
+<div class="section-heading"><span class="section-number">04</span><div><p class="eyebrow">POWER &amp; WIRELESS</p><h2>Power and connect the sensors</h2></div></div>
+<figure class="figure"><img src="assets/wifi.jpg" loading="lazy" width="1024" height="516" alt="Wireless PrintTac data collection with magnetometers, ESP32 controllers, and an iPhone hotspot"><figcaption>The original wireless collection architecture. Ports below refer to the current ARPoseStreamer implementation.</figcaption></figure>
+<div class="notice warning"><span class="notice-icon" aria-hidden="true">!</span><div><strong>Verify the board documentation before wiring</strong><p>The available materials do not establish the exact pinout, voltage, or bus wiring. Obtain the sensor-board documentation, QT Py variant, power requirements, and matching firmware first. In this architecture, USB-C supplies power; magnetic data travels over Wi-Fi.</p></div></div>
+<ol class="simple-steps"><li>On the iPhone, enable <strong>Personal Hotspot</strong> and <strong>Allow Others to Join</strong>.</li><li>For 2.4 GHz boards, enable <strong>Maximize Compatibility</strong>. Prefer ASCII characters for the phone name and hotspot password.</li><li>Configure the hotspot SSID and password in the matching firmware. Assign separate ports to the right and left fingers.</li><li>After connecting, read the gateway address from DHCP and send packets to that address. Do not hard-code the phone IP.</li><li>Open the app and inspect each side's receive rate, packet loss, sequence number, and five-chip readings.</li></ol>
+<div class="table-wrap"><table><thead><tr><th>Direction</th><th>Protocol / port</th><th>Purpose</th></tr></thead><tbody>
+<tr><td>Right finger → iPhone</td><td><code>ASKN · UDP 5557</code></td><td>96-byte magnetic packets</td></tr><tr><td>Left finger → iPhone</td><td><code>ASKN · UDP 5562</code></td><td>Independent left-finger data</td></tr><tr><td>iPhone → computer</td><td><code>APM2 · UDP 5558</code></td><td>Pose and two-finger magnetic data</td></tr><tr><td>Computer → iPhone</td><td><code>PC_HELLO · UDP 5559</code></td><td>Registration heartbeat</td></tr><tr><td>Main / ultrawide → computer</td><td><code>UDP 5560 / 5561</code></td><td>Video streams; ultrawide for ArUco</td></tr><tr><td>Saved capture → computer</td><td><code>HTTP · TCP 8000</code></td><td>Historical file upload</td></tr>
+</tbody></table></div>
+<p class="subtle">Validate hotspot routing on the target iPhone and iOS version. The app cannot enable Personal Hotspot through a public iOS API.</p>
+</section>
+<section id="phone">
+<div class="section-heading"><span class="section-number">05</span><div><p class="eyebrow">IPHONE SETUP</p><h2>Install the collection app</h2></div></div>
+<p>Build the current ARPoseStreamer project on a Mac and install it on a physical iPhone using Xcode.</p>
+<ol class="simple-steps"><li>Install Xcode and XcodeGen on your Mac, then download the collection code.</li><li>Run the command below from the project directory and open the generated Xcode project.</li><li>Select your Apple Signing Team, connect the iPhone, and build and run from Xcode.</li><li>Allow camera and local-network access. Follow Xcode's prompts to enable development on the device.</li></ol>
+<div class="codeblock"><div class="code-head"><span>Project directory · macOS</span><button class="copy" type="button">Copy</button></div><pre><code>xcodegen generate</code></pre></div>
+<div class="notice"><span class="notice-icon" aria-hidden="true">i</span><div><strong>Ultrawide compatibility</strong><p>The current 0.5× capture path uses private ARKit fields on compatible iPhone Pro devices and requires development-signed sideloading. An iOS update may break this path. Verify the ultrawide preview before collecting gripper data; main-camera recording and pose tracking can operate independently.</p></div></div>
+<a class="text-link" href="https://github.com/pigwu/ARPoseStreamer/blob/main/INSTALL_IPHONE_APP.md" target="_blank" rel="noopener">Read the app installation instructions</a>
+</section>
+<section id="calibration">
+<div class="section-heading"><span class="section-number">06</span><div><p class="eyebrow">GRIPPER CALIBRATION</p><h2>Calibrate the gripper aperture</h2></div></div>
+<p>Sensor-instance consistency and aperture calibration are separate concerns. The current software estimates opening from two ArUco markers in the ultrawide image. After assembly, calibrate this measurement against the actual distance between the inner gripping surfaces.</p>
+<div class="spec-strip"><div><small>Marker dictionary</small><strong>DICT_4X4_50</strong></div><div><small>Marker IDs</small><strong>0 and 1</strong></div><div><small>Black outer edge</small><strong>16 mm</strong></div></div>
+<ol class="steps"><li><h3>Print, measure, and mount the markers</h3><p>Print at 100% scale and verify the black outer edge with calipers. Rigidly mount IDs 0 and 1 on the moving jaws. Keep them at similar height and depth, approximately coplanar, with the camera X axis aligned to the opening direction.</p></li><li><h3>Open the ultrawide monitor</h3><p>Launch Experiment Monitor, select <code>Start Monitor</code>, and open <code>ArUco Gripper</code>. Both markers must be visible in the same 0.5× frame throughout the opening range.</p></li><li><h3>Record the minimum and maximum openings</h3><p>Measure the actual jaw gap with calipers. Hold the minimum opening still for about one second and record the minimum point. Repeat at the maximum opening.</p></li><li><h3>Save and check an intermediate opening</h3><p>Save and apply the calibration. Compare an intermediate opening against the calipers. Recalibrate after changing marker placement, print scale, camera lens, or mounting geometry.</p></li></ol>
+<div class="codeblock"><div class="code-head"><span>Project directory · Windows PowerShell</span><button class="copy" type="button">Copy</button></div><pre><code>python -m pip install -r requirements_visualizer.txt
+.\run_experiment_monitor_windows.ps1</code></pre></div>
+<details><summary>Measurement model and depth gate</summary><div class="details-body"><p>The raw measurement is the separation of the two markers along the camera X axis in the same frame:</p><pre><code>raw_width = abs(x_id1 - x_id0)
+opening = scale × raw_width + offset</code></pre><p>The default marker-depth gate is 72 ± 8 mm. If the monitor reports <code>marker_depth_out_of_range</code>, use its control to apply the current depth. The quick calibration uses statistics from stable frames; repeated opening and closing remains an optional robust-calibration method.</p></div></details>
+</section>
+<section id="capture">
+<div class="section-heading"><span class="section-number">07</span><div><p class="eyebrow">FIRST CAPTURE</p><h2>Record your first demonstration</h2></div></div>
+<p>Start with a short test: move the phone, gently touch each fingertip, open and close the gripper, then inspect the saved files. A computer does not need to remain connected during local recording.</p>
+<ol class="simple-steps"><li>Confirm the hotspot is enabled and both fingers are connected. Each magnetic sequence number should increase.</li><li>Confirm normal ARKit tracking and enable the desired video recording options.</li><li>Select <code>Start Recording</code>, perform the short test, then stop recording.</li><li>Open <code>Past Records</code> and confirm the session was saved.</li><li>Start the upload service on your computer and set the app's host address to the computer's actual IP. Use <code>Upload Data</code> for data and the separate video-upload controls for video.</li></ol>
+<div class="two-col"><div class="codeblock"><div class="code-head"><span>Capture directory</span></div><pre><code>Captures/&lt;session&gt;/
+  pose.csv
+  magnetic_right.csv
+  magnetic_left.csv
+  video.mp4
+  capture_manifest.json</code></pre></div><div class="file-note"><h3>Files follow the available inputs</h3><p>A magnetic CSV is created after the first valid sample arrives on that side. Video files are created when recording is enabled. Supported ultrawide recording and upload paths may also produce a separate video.</p><p>Missing tactile input does not block pose or main-camera recording. For two-finger experiments, confirm that both magnetic files are present.</p></div></div>
+<div class="codeblock"><div class="code-head"><span>Computer upload service · Windows</span><button class="copy" type="button">Copy</button></div><pre><code>py capture_upload_server.py --host 0.0.0.0 --port 8000</code></pre></div>
+<details><summary>Receive live combined data on a computer</summary><div class="details-body"><p>Connect the computer to the same phone hotspot. Read its actual gateway address and replace <code>PHONE_IP</code> below before running:</p><div class="codeblock"><div class="code-head"><span>Windows</span><button class="copy" type="button">Copy</button></div><pre><code>py pose_magnetic_receiver.py --phone-ip PHONE_IP</code></pre></div><p>172.20.10.1 is a common hotspot gateway, but use the actual network configuration. Local phone recording continues if the computer disconnects.</p></div></details>
+</section>
+<section id="troubleshooting">
+<div class="section-heading"><span class="section-number">08</span><div><p class="eyebrow">VALIDATION &amp; TROUBLESHOOTING</p><h2>Validate before collecting data</h2></div></div>
+<div class="validation"><h3>Pre-capture checklist</h3><ul class="check-list"><li>Unloaded magnetic readings are stable and respond reproducibly to touch and release.</li><li>Left and right channels match the physical fingers. Sequences increase, and receive rate and packet loss have been checked.</li><li>Both ArUco markers remain visible, and an intermediate opening agrees with the caliper measurement.</li><li>Pose changes reasonably with phone motion, and the session contains the expected data and videos.</li><li>A test session uploads successfully and can be opened or replayed on the computer.</li></ul></div>
+<details><summary>The boards connect to the hotspot, but no magnetic data arrives</summary><div class="details-body"><p>Check 2.4 GHz compatibility, local-network permission, the DHCP gateway, side-specific ports, and the ASKN packet format. The current app expects 96-byte packets. Firmware must implement the matching protocol. Enable the hotspot before starting or reconnecting the boards.</p></div></details>
+<details><summary>Only one finger appears, or the fingers are swapped</summary><div class="details-body"><p>Touch each finger separately and check the corresponding app channel. The right finger uses UDP 5557; the left uses UDP 5562. Configure both boards independently. Sending both streams to one port does not automatically separate the sides.</p></div></details>
+<details><summary>The ArUco opening is unstable or calibration fails</summary><div class="details-body"><p>Confirm the monitor is processing the 0.5× stream, both markers are visible in the same frame, the printed size is 16 mm, and marker depths pass the gate. Avoid warped or reflective markers. Hold each endpoint still for about one second and repeat if there are too few valid frames.</p></div></details>
+<details><summary>The magnetic baseline changes after replacing a tip</summary><div class="details-body"><p>Check whether the magnets, sensor board, or flexure moved, whether tightening caused deformation, and whether nearby magnetic objects affect the signal. Resolve mechanical and environmental changes before repeating the unloaded check.</p></div></details>
+<details><summary>Recording works, but upload fails</summary><div class="details-body"><p>Confirm that the phone and computer can reach each other, the upload service is running on TCP 8000, the app's Host IP points to the computer, and the firewall allows the service. Upload data and video through their respective controls.</p></div></details>
+</section>
+<section id="resources" class="resources">
+<p class="eyebrow">SOURCES &amp; RELEASE STATUS</p><h2>Resources and release status</h2>
+<div class="resource-links"><a href="https://peppasaur.github.io/PrintTac/" target="_blank" rel="noopener"><strong>PrintTac project page</strong><span>Hardware overview, figures, and assembly video</span></a><a href="https://github.com/pigwu/ARPoseStreamer" target="_blank" rel="noopener"><strong>ARPoseStreamer</strong><span>Collection app, receiver tools, and documentation</span></a><a href="https://umi-ft.github.io/" target="_blank" rel="noopener"><strong>UMI-FT reference</strong><span>Reference for hardware-guide organization</span></a></div>
+<p>This guide connects the PrintTac hardware overview to the current collection workflow. Ports, marker dimensions, and quick-calibration instructions follow the current workspace documentation and may differ from a later release.</p>
+<p><strong>Reproduction package pending:</strong> CAD / STL files, validated print profiles, magnet-polarity layout, complete BOM, wiring diagrams, firmware, and a hardware–software revision map. These are required to turn the documented architecture into a fully reproducible build.</p>
+<p class="subtle">Images and video are from the <a href="https://peppasaur.github.io/PrintTac/" target="_blank" rel="noopener">PrintTac project page</a>. Research and designs belong to their original authors. The submission manuscript is not reproduced here.</p>
+</section>
+<footer><span><strong>PrintTac</strong> / Hardware Guide</span><a href="#overview">Back to top</a></footer>
+</main>
+</div>
+<div id="copy-status" class="sr-only" role="status" aria-live="polite"></div>
+</body>
+</html>
