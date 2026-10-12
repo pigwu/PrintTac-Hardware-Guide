@@ -1,6 +1,6 @@
 # PrintTac Hardware Guide
 
-An English hardware guide for building a PrintTac tactile UMI gripper and using the ARPoseStreamer collection workflow.
+An English hardware guide for building a PrintTac tactile UMI gripper and using the PrintTac Capture collection workflow.
 
 ## Website
 
@@ -25,7 +25,7 @@ Open `http://localhost:8000/`. Commit and push changes to `main` to update GitHu
 ## Sources and attribution
 
 - [PrintTac project page](https://peppasaur.github.io/PrintTac/): hardware overview, figures, and assembly video.
-- [ARPoseStreamer](https://github.com/pigwu/ARPoseStreamer): collection app, receiver tools, and documentation.
+- [PrintTac Capture](https://github.com/pigwu/printtac-capture): collection app, receiver tools, and documentation.
 - [UMI-FT](https://umi-ft.github.io/): reference for hardware-guide organization.
 
 The figures in `assets/` originate from the PrintTac project page. The assembly video is embedded from that project. Research, hardware designs, and source media belong to their original authors.
